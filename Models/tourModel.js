@@ -150,12 +150,12 @@ tourSchema.virtual('reviews',{
   });
 
   tourSchema.pre('save',function(next){
-    console.log('Will save document....');
+   // console.log('Will save document....');
     next();
   });
 
   tourSchema.post('save',function(doc,next){
-    console.log(doc);
+    //console.log(doc);
     next();
   });
 
@@ -176,11 +176,11 @@ tourSchema.virtual('reviews',{
     next();
   });
   
-  tourSchema.post(/^find/,function(docs,next){
-   console.log(`Query tooks....${Date.now()-this.start} milliseconds`);
+  // tourSchema.post(/^find/,function(docs,next){
+  //  console.log(`Query tooks....${Date.now()-this.start} milliseconds`);
    
-    next();
-  });
+  //   next();
+  // });
 
   // AGGREGATION MIDDLEWARE
 

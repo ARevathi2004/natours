@@ -7,6 +7,7 @@ const mongoSanitize=require('express-mongo-sanitize');
 const xss=require('xss-clean');
 const hpp=require('hpp');
 const cookieParser=require('cookie-parser');
+const compression=require('compression');
 const AppError=require('./utils/appError');
 const globalErrorHandler=require('./controller/errorController');
 const tourRouter = require('./routes/tourRoutes');
@@ -82,7 +83,7 @@ app.use(hpp({
   ]
 }));
 
-
+app.use(compression());
 
 // Test middleware
 app.use((req, res, next) => {
@@ -99,7 +100,7 @@ app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
 
 app.all('*',(req,res,next)=>{
-  console.log(req.originalUrl.includes('/.well-known/appspecific'));
+  //console.log(req.originalUrl.includes('/.well-known/appspecific'));
   next(new AppError(`Can't find ${req.originalUrl} on this server!`,404));
 });
 

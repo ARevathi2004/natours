@@ -41,7 +41,7 @@ mongoose.connect(process.env.DATABASE)
     }
     process.exit();
   };
-
+console.log(await User.find())
   // DELETE ALL DATA FROM DB
   const deleteData=async()=>{
     try{

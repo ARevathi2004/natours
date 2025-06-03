@@ -44,7 +44,7 @@ router
     tourController.createTour
 );
 
-router.route('/tour/:slug')
+router.route('/:id')
 .get(tourController.getTour)
 .patch(
     authController.protect, 

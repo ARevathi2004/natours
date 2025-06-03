@@ -4,6 +4,7 @@ const dotenv=require('dotenv');
 const Tour=require('./../../Models/tourModel');
 const User=require('./../../Models/userModel');
 const Review=require('./../../Models/reviewModel');
+const slugify = require('slugify');
 
 dotenv.config({ path: './config.env' });
 
@@ -18,6 +19,12 @@ mongoose.connect(process.env.DATABASE_LOCAL)
   const tours=JSON.parse(fs.readFileSync(`${__dirname}/tours.json`,'utf-8'));
   const users=JSON.parse(fs.readFileSync(`${__dirname}/users.json`,'utf-8'));
   const reviews=JSON.parse(fs.readFileSync(`${__dirname}/reviews.json`,'utf-8'));
+
+  
+ tours.forEach(tour => {
+  tour.slug = slugify(tour.name, { lower: true });
+});
+
 
   //IMPORT DATA INTO DB
 

@@ -34,6 +34,7 @@ mongoose.connect(process.env.DATABASE)
         await Tour.create(tours);
         await User.create(users,{ validateBeforeSave:false});
         await Review.create(reviews);
+        console.log(await User.find());
         console.log('Data successfully loaded');
         
     }catch(err){
@@ -41,7 +42,7 @@ mongoose.connect(process.env.DATABASE)
     }
     process.exit();
   };
-console.log(await User.find())
+
   // DELETE ALL DATA FROM DB
   const deleteData=async()=>{
     try{

@@ -68,11 +68,6 @@ exports.aliasTopTours=(req,res,next)=>{
   next();
 };
 
-const slugify = require('slugify');
-tours.forEach(tour => {
-  tour.slug = slugify(tour.name, { lower: true });
-});
-
 
 exports.getAllTours = factory.getAll(Tour);
 exports.getTour = factory.getOne(Tour,{path:'reviews'});

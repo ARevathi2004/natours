@@ -9,7 +9,7 @@ const slugify = require('slugify');
 dotenv.config({ path: './config.env' });
 
 
-mongoose.connect(process.env.DATABASE_LOCAL)
+mongoose.connect(process.env.DATABASE)
   .then(()=>{
    
     console.log("DB Connections Successful");

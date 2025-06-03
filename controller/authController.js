@@ -34,8 +34,13 @@ const createSendToken=(user,statuscode,res)=>{
 }
 
 exports.signup=catchAsync(async (req,res,next) => {
-    const newUser=await User.create(req.body);
-
+    // const newUser=await User.create(req.body);
+    const newUser = await User.create({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+    passwordConfirm: req.body.passwordConfirm
+  });
     const url=`${req.protocol}://${req.get('host')}/me`;
     //console.log(url);
     await new Email(newUser,url).sendWelcome();
@@ -59,6 +64,7 @@ if(!user || !await user.correctPassword(password,user.password)){
 }
 
 // 3) If everything ok ,send token to client
+
 createSendToken(user,200,res);
 });
 

@@ -69,7 +69,11 @@ userSchema.pre('save',async function(next){
     if(!this.isModified('password')) return next();
 
     // Hash the password with cost of 12
-    this.password= await bcrypt.hash(this.password,12);
+    if (!this.password.startsWith('$2a$') && !this.password.startsWith('$2b$')) {
+  this.password = await bcrypt.hash(this.password, 12);
+}
+
+    //this.password= await bcrypt.hash(this.password,12);
 
     // Delete the passwordconfirm field
     this.passwordConfirm=undefined;

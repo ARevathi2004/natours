@@ -59,7 +59,7 @@ if(!email || !password){
 // 2) Check if user exist and password is correct
 const user=await User.findOne({email}).select('+password');
 
-if(!user || !await user.correctPassword(password,user.password)){
+if(!user || !(await user.correctPassword(password,user.password))){
     return next(new AppError('Incorrect email and password!',401));
 }
 

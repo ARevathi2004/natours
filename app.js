@@ -52,45 +52,22 @@ app.use(express.static(path.join(__dirname , 'public')));
 
 // Set security HTTP headers
 app.use(helmet());
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     directives: {
-//       defaultSrc: ["'self'", 'https://*.mapbox.com', 'https://*.stripe.com'],
-//       baseUri: ["'self'"],
-//       fontSrc: ["'self'", 'https:', 'data:'],
-//       imgSrc: ["'self'", 'data:'],
-//       scriptSrc: [
-//         "'self'",
-//         'https://js.stripe.com/v3',
-//         'https://cdnjs.cloudflare.com',
-//         'https://api.mapbox.com',
-//         'blob:',
-//       ],
-//       objectSrc: ["'none'"],
-//       frameSrc: ["'self'", 'https://*.stripe.com/'],
-//       styleSrc: ["'self'", 'https:', "'unsafe-inline'"],
-//       upgradeInsecureRequests: [],
-//     },
-//   })
-//  );
-
 
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: ["'self'"],
+      defaultSrc: ["'self'", 'https:', 'http:'],
       scriptSrc: [
         "'self'",
         'https://js.stripe.com',
-        'https://cdnjs.cloudflare.com',
         'https://api.mapbox.com',
-        'blob:'
+        "'unsafe-inline'",
+        "'unsafe-eval'"
       ],
-      frameSrc: ['https://js.stripe.com'],
-      objectSrc: ["'none'"],
       styleSrc: [
         "'self'",
         'https://fonts.googleapis.com',
+        'https://api.mapbox.com',
         "'unsafe-inline'"
       ],
       fontSrc: ["'self'", 'https://fonts.gstatic.com'],
@@ -98,11 +75,14 @@ app.use(
         "'self'",
         'https://api.mapbox.com',
         'https://events.mapbox.com',
-        'https://js.stripe.com'
+        'https://*.stripe.com'
       ],
+      frameSrc: ['https://js.stripe.com'],
+      imgSrc: ["'self'", 'data:', 'blob:'],
     },
   })
 );
+
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {

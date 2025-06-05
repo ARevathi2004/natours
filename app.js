@@ -35,14 +35,20 @@ app.use('/.well-known/appspecific/com.chrome.devtools.json', (req, res) => {
 
 //1) GLOBAL MIDDLEWARES
 // Implement cors
-app.use(cors());
+app.use(cors({
+  origin: 'https://natours-cs8q.onrender.com',
+  credentials: true
+}));
+app.options('*', cors()); // Allow preflight for all routes
+
+//app.use(cors());
 // Access-Control-Allow-Origin *
 // api.natours.com, front-end natours.com
 // app.use(cors({
 //   origin:'https://www.natours.com'
 // }))
 
-app.options('*',cors());
+//app.options('*',cors());
 // app.options('api/v1/tours/:id',cors());
 
 // serving static files

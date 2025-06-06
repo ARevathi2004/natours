@@ -86,7 +86,7 @@ exports.webhookCheckout=async (req,res,next)=>{
 
    if(event.type === 'checkout.session.completed'){
    console.log('🔥 Creating booking for session:', event.data.object);
-    await createBookingCheckout(event.data.object).catch(err => console.error(err));
+    await exports.createBookingCheckout(event.data.object).catch(err => console.error(err));
  console.error('❌ Booking creation failed:', err);
    }
    

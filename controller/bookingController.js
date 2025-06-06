@@ -56,16 +56,11 @@ exports.getCheckoutSession=catchAsync(async(req,res,next)=>{
 // });
 
 exports.createBookingCheckout=async session=>{
-  try{
   const tour=session.client_reference_id;
   const user= (await User.findOne({email:session.customer_email})).id;
   const price = session.amount_total / 100;
   
-  const newBooking=await Booking.create({tour,user,price});
-console.log('✅ Booking saved:', newBooking);
-  } catch (err) {
-    console.error('❌ Error creating booking:', err);
-  }
+ await Booking.create({tour,user,price});
   
 };
 
@@ -79,15 +74,14 @@ exports.webhookCheckout=async (req,res,next)=>{
       process.env.STRIPE_WEBHOOK_SECRET
     );
    }catch(err){
-     console.log('❌ Invalid webhook signature:', err.message);
       return res.status(400).send(`webhook error: ${err.message}`);
    }
-   console.log('✅ Webhook received:', event.type);
+   
 
    if(event.type === 'checkout.session.completed'){
-   console.log('🔥 Creating booking for session:', event.data.object);
+   
     await exports.createBookingCheckout(event.data.object).catch(err => console.error(err));
- console.error('❌ Booking creation failed:', err);
+ 
    }
    
    res.status(200).json({received:true});

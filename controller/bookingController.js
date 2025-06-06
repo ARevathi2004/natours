@@ -60,13 +60,13 @@ exports.createBookingCheckout=async session=>{
   const tour=session.client_reference_id;
   const user= (await User.findOne({email:session.customer_email})).id;
   const price = session.amount_total / 100;
-  console.log('✅ Booking Info:', { tour, user, price });
-
-  await Booking.create({tour,user,price});
- console.log('✅ Booking saved successfully!');
+  
+  const newBooking=await Booking.create({tour,user,price});
+console.log('✅ Booking saved:', newBooking);
   } catch (err) {
-    console.error('❌ Error in createBookingCheckout:', err);
+    console.error('❌ Error creating booking:', err);
   }
+  
 };
 
 exports.webhookCheckout=async (req,res,next)=>{

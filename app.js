@@ -56,18 +56,18 @@ app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: ["'self'", 'https:', 'http:'],
+      defaultSrc: ["'self'"],
       scriptSrc: [
         "'self'",
         'https://js.stripe.com',
+        'https://cdnjs.cloudflare.com',
         'https://api.mapbox.com',
-        "'unsafe-inline'",
-        "'unsafe-eval'"
+        'blob:'
       ],
       styleSrc: [
         "'self'",
         'https://fonts.googleapis.com',
-        'https://api.mapbox.com',
+        'https://api.mapbox.com',   // ✅ Add this line
         "'unsafe-inline'"
       ],
       fontSrc: ["'self'", 'https://fonts.gstatic.com'],
@@ -75,14 +75,13 @@ app.use(
         "'self'",
         'https://api.mapbox.com',
         'https://events.mapbox.com',
-        'https://*.stripe.com'
+        'https://js.stripe.com'
       ],
       frameSrc: ['https://js.stripe.com'],
-      imgSrc: ["'self'", 'data:', 'blob:'],
+      objectSrc: ["'none'"]
     },
   })
 );
-
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
